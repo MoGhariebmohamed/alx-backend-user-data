@@ -69,6 +69,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                                      host=host,
                                                      database=db_name)
     return cnx
+
+
 def main():
     """
     Main function to retrieve user data from database and log to console
