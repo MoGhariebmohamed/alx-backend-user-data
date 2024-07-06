@@ -27,7 +27,7 @@ def is_valid(hashed_password: bytes, password: str) -> bool:
         Validates the provided password
 
         Args:
-                hashed_password (bytes): A byte string 
+                hashed_password (bytes): A byte string
                 password (str): A string containing the plain text
 
         Returns:
