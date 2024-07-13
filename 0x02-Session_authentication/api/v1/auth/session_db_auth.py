@@ -36,5 +36,5 @@ class SessionDBAuth(SessionExpAuth):
     def destroy_session(self, request=None):
         """ destroy_session
         """
-        l = request
+        last = request
         return False
