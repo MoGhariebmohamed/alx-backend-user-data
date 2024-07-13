@@ -20,13 +20,13 @@ if auth_type == 'auth':
 if auth_type == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-if authType == 'session_auth':
+if auth_type == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
-if authType == 'session_exp_auth':
+if auth_type == 'session_exp_auth':
     from api.v1.auth.session_exp_auth import SessionExpAuth
     auth = SessionExpAuth()
-if authType == 'session_db_auth':
+if auth_type == 'session_db_auth':
     from api.v1.auth.session_db_auth import SessionDBAuth
     auth = SessionDBAuth()
 
@@ -56,18 +56,21 @@ def forbidden(error) -> str:
 def authenticate_user():
     """Authenticates a user before processing a request.
     """
-     paths = ['/api/v1/status/', '/api/v1/unauthorized/',
-             '/api/v1/forbidden/', '/api/v1/auth_session/login/']
-
-    if auth is None:
-        return
-    if auth.require_auth(request.path, paths):
-        if auth.authorization_header(request) is None \
-                and auth.session_cookie(request) is None:
-            abort(401)
-        if auth.current_user(request) is None:
-            abort(403)
-        request.current_user = auth.current_user(request)
+    if auth:
+        excluded_paths = [
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/',
+            '/api/v1/auth_session/login/'
+        ]
+        if auth.require_auth(request.path, excluded_paths):
+            auth_header = auth.authorization_header(request)
+            user = auth.current_user(request)
+            if auth_header is None:
+                abort(401)
+            if user is None:
+                abort(403)
+            request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
