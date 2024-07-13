@@ -2,6 +2,7 @@
 """Authentication module API
 """
 import re
+import os
 import fnmatch
 from typing import List, TypeVar
 from flask import request
@@ -45,4 +46,3 @@ class Auth:
             session_name = os.getenv('SESSION_NAME')
             return request.cookies.get(session_name)
         return None
-
