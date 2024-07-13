@@ -1,6 +1,5 @@
-
 #!/usr/bin/env python3
-"""Basic authentication module for the API.
+"""Basic authentication module for the API
 """
 import re
 import base64
@@ -87,4 +86,3 @@ class BasicAuth(Auth):
         auth_token = self.decode_base64_authorization_header(b64_auth_token)
         email, password = self.extract_user_credentials(auth_token)
         return self.user_object_from_credentials(email, password)
-    
