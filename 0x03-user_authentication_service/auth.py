@@ -139,3 +139,4 @@ class Auth:
         self._db.update_user(user.id,
                              hashed_password=hash_pass,
                              reset_token=None,)
+                             
